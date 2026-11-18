@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -831,7 +831,11 @@ MonoBehaviour:
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -21230
+      - m_Data: -103850
+      - m_Data: -97698
+      - m_Data: -96466
+      - m_Data: -44116
+      - m_Data: -26478
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1481,9 +1485,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 0, y: 0, z: 0}
+    m_Target: {x: 10.740801, y: 2.8650966, z: 3.1724846}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0}
+    m_Value: {x: 10.740801, y: 2.8650966, z: 3.1724846}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1530,9 +1534,9 @@ MonoBehaviour:
     m_gridOpacity: 0.5
     m_NearestPlaneToHandleMode: 0
   m_Rotation:
-    m_Target: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+    m_Target: {x: -0.07344017, y: 0.83114874, z: -0.113154806, w: -0.53944844}
     speed: 2
-    m_Value: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+    m_Value: {x: -0.07343979, y: 0.8311445, z: -0.113154225, w: -0.5394457}
   m_Size:
     m_Target: 10
     speed: 2
@@ -1617,9 +1621,9 @@ MonoBehaviour:
     m_SceneHandles: []
     m_ShowAllHits: 0
     m_SkipHidden: 1
-    m_SearchArea: 1
+    m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Scenes
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1629,19 +1633,21 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\email\Desktop\P3\D3D_P3_Borniquel_Collado
+  m_LastProjectPath: C:\TECNOCAMPUS\DESENVOLUPAMENT 3D\D3D_P3_Borniquel_Collado_\D3D_P3_Borniquel_Collado
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 177}
     m_SelectedIDs:
-    - m_Data: 39892
+    - m_Data: 41080
     m_LastClickedID:
-      m_Data: 39892
-    m_ExpandedIDs: []
+      m_Data: 41080
+    m_ExpandedIDs:
+    - m_Data: 0
+    - m_Data: 37006
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1673,7 +1679,9 @@ MonoBehaviour:
     m_SelectedIDs: []
     m_LastClickedID:
       m_Data: 0
-    m_ExpandedIDs: []
+    m_ExpandedIDs:
+    - m_Data: 0
+    - m_Data: 37006
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1704,11 +1712,12 @@ MonoBehaviour:
     m_SelectedInstanceIDs: []
     m_LastClickedEntityId:
       m_Data: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_Data: 80342
     - m_Data: 37862
     - m_Data: 37844
+    - m_Data: 42142
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
