@@ -9,10 +9,12 @@ public class MarioController : MonoBehaviour
     public Camera m_Camera;
     CharacterController m_CharacterController;
     Animator m_Animator;
+    public Collider m_GroundCheckerCollider;
 
     public float m_VerticalSpeed = 0f;
     public float m_JumpSpeed = 7f;
 
+    bool m_OnGround = false;
 
     public float m_WalkSpeed = 4.0f;
     public float m_RunSpeed = 8f;
@@ -40,6 +42,7 @@ public class MarioController : MonoBehaviour
 
     private void Update()
     {
+
         Vector3 l_Right = m_Camera.transform.right;
         Vector3 l_Forward = m_Camera.transform.forward;
         l_Right.y = 0;
@@ -88,7 +91,7 @@ public class MarioController : MonoBehaviour
             Quaternion l_DesiredRotation = Quaternion.LookRotation(l_Direction); 
             transform.rotation = Quaternion.Lerp(transform.rotation ,l_DesiredRotation, m_RotationLerpPct*Time.deltaTime);
         }
-        if (Keyboard.current[m_JumpKeyControl].wasPressedThisFrame)
+        if (Keyboard.current[m_JumpKeyControl].isPressed && m_OnGround)
         {
             m_VerticalSpeed = m_JumpSpeed;
         }
@@ -99,10 +102,19 @@ public class MarioController : MonoBehaviour
         m_VerticalSpeed += Physics.gravity.y * Time.deltaTime;
         l_Direction.y = m_VerticalSpeed * Time.deltaTime;
         CollisionFlags l_CollisionFlags = m_CharacterController.Move(l_Direction);
+
+        m_OnGround = (l_CollisionFlags & CollisionFlags.Below) != 0;
+
         if (((l_CollisionFlags & CollisionFlags.Below) != 0) || (l_CollisionFlags & CollisionFlags.Above) != 0 & m_VerticalSpeed > 0f)
         {
             m_VerticalSpeed = 0;
         }
         m_CharacterController.Move(l_Direction);
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }

@@ -30,8 +30,10 @@ public class CameraController : MonoBehaviour
         float l_YawRadians=m_Yaw*Mathf.Deg2Rad;
         float l_PitchRadians = m_Pitch * Mathf.Deg2Rad;
 
-        Vector3 l_Direction = new Vector3(Mathf.Sin(l_YawRadians) * Mathf.Cos(l_PitchRadians),
-            Mathf.Sin(l_PitchRadians), Mathf.Cos(l_YawRadians))*Mathf.Cos(l_PitchRadians);
+        Vector3 l_Direction = new Vector3(
+            Mathf.Sin(l_YawRadians) * Mathf.Cos(l_PitchRadians),
+            Mathf.Sin(l_PitchRadians), 
+            Mathf.Cos(l_YawRadians)*Mathf.Cos(l_PitchRadians));
 
         float l_Distance = Vector3.Distance(m_LookAt.position, transform.position);
         float l_CameraDistance = Math.Clamp(l_Distance, m_MinDistance, m_MaxDistance) ;
