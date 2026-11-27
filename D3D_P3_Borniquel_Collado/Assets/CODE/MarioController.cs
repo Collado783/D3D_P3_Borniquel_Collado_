@@ -79,7 +79,7 @@ public class MarioController : MonoBehaviour
 
         if (l_IsMoving)
         {
-            if (Keyboard.current[m_RunKeyControl].isPressed)
+            if (Keyboard.current[m_RunKeyControl].isPressed && m_OnGround)
             {
                 l_Speed = m_RunSpeed;
                 l_AnimatorSpeed = 1f;

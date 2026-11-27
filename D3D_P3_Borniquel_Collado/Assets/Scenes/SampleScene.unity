@@ -259,8 +259,10 @@ MonoBehaviour:
   m_VerticalSpeed: 0
   m_JumpSpeed: 7
   m_WalkSpeed: 4
-  m_RunSpeed: 8
+  m_RunSpeed: 6
   m_RotationLerpPct: 10
+  m_AnimWalkSpeed: 2
+  m_AnimRunSpeed: 4
   m_RightKeyControl: 18
   m_LeftKeyControl: 15
   m_ForwardKeyControl: 37
@@ -2416,7 +2418,7 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: 2c49a169fa02b2545921fcc829011ecb, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 274cf816e3254684cbfedc45789ef606, type: 2}
+      objectReference: {fileID: 9100000, guid: 8890dd45117fef144b051b76708e072d, type: 2}
     - target: {fileID: 13700000, guid: 2c49a169fa02b2545921fcc829011ecb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
