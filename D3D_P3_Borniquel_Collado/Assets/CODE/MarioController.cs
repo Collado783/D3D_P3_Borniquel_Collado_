@@ -3,13 +3,17 @@ using TreeEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using static GameController;
 
-public class MarioController : MonoBehaviour
+public class MarioController : MonoBehaviour, IRestartGameElement
 {
+    Vector3 m_StartPosition;
+    Quaternion m_StartRotation;
     public Camera m_Camera;
     CharacterController m_CharacterController;
     Animator m_Animator;
     public Collider m_GroundCheckerCollider;
+    
 
     public float m_VerticalSpeed = 0f;
     public float m_JumpSpeed = 7f;
@@ -20,6 +24,10 @@ public class MarioController : MonoBehaviour
     public float m_RunSpeed = 8f;
     public float m_RotationLerpPct = 10f;
 
+    public GameObject m_RightHandCollider;
+    public GameObject m_LeftHandCollider;
+    public GameObject m_KickCollider;
+
 
     [Header("Input")]
     public Key m_RightKeyControl=Key.D;
@@ -28,7 +36,15 @@ public class MarioController : MonoBehaviour
     public Key m_BackKeyControl = Key.S;
     public Key m_RunKeyControl = Key.LeftShift;
     public Key m_JumpKeyControl = Key.Space;
-    
+    public Key m_DebugKeyControl = Key.R;
+
+    public int m_PunchMouseButton = 0;
+    public bool m_IsPunching=false;
+    float m_LastPunchInitTime=0;
+    public float m_PunchCOmboTime = 1;
+     int m_PunchId=0;
+   
+
     private void Awake()
     {
         m_CharacterController = GetComponent<CharacterController>();
@@ -37,6 +53,13 @@ public class MarioController : MonoBehaviour
 
     private void Start()
     {
+        m_RightHandCollider.SetActive(false);
+        m_LeftHandCollider.SetActive(false);
+        m_KickCollider.SetActive(false);
+
+        transform.position=m_StartPosition;
+        transform.rotation = m_StartRotation;
+        GameController.GetGameController().AddRestartGameElement(this);
 
     }
 
@@ -52,8 +75,8 @@ public class MarioController : MonoBehaviour
 
         Vector3 l_Direction = Vector3.zero;
 
-        
 
+        UpdatePunch();
         if (Keyboard.current[m_RightKeyControl].isPressed)
         {
             l_Direction = l_Right;
@@ -71,6 +94,7 @@ public class MarioController : MonoBehaviour
         {
             l_Direction -=l_Forward;
         }
+
 
         bool l_IsMoving = l_Direction.sqrMagnitude>0.5f;
         float l_AnimatorSpeed = 0;
@@ -116,5 +140,45 @@ public class MarioController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
+    }
+    private void Punch()
+    {
+        SetIsPunching(true);
+        float l_TotalTimeSInceLastPunch = Time.time - m_LastPunchInitTime;
+        if (l_TotalTimeSInceLastPunch <= m_PunchCOmboTime)
+        {
+            m_PunchId = (m_PunchId + 1) % 3;
+        }
+        else
+            m_PunchId = 0;
+            m_Animator.SetTrigger("Punch");
+            m_Animator.SetInteger("Punch", m_PunchId);
+
+
+    }
+    public void SetIsPunching(bool isPunching)
+    {
+        m_IsPunching = isPunching;
+        if (!isPunching)
+        {
+            m_LastPunchInitTime = Time.time;
+        }
+    }
+    private bool CanPunch()
+    {
+        return m_IsPunching; 
+
+    }
+    void UpdatePunch()
+    {
+        if(Mouse.current.leftButton.wasPressedThisFrame && CanPunch())
+        {
+            Punch();
+        }
+    }
+
+    public void RestartGame()
+    {
+        throw new System.NotImplementedException();
     }
 }

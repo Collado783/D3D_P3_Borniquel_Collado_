@@ -11,7 +11,16 @@ public class GameController : MonoBehaviour
     //InGameUI m_IngameUI;
     public GameObject gameOverUI;
     public bool GameOverScreen = false;
+    List<IRestartGameElement> m_RestartGameElements = new List<IRestartGameElement>();
 
+    public interface IRestartGameElement
+    {
+        void RestartGame();
+    }
+    public void AddRestartGameElement(IRestartGameElement RestartGameElement)
+    {
+        m_RestartGameElements.Add(RestartGameElement);
+    }
     private void Awake()
     {
         if (m_GameController == null)
@@ -44,6 +53,7 @@ public class GameController : MonoBehaviour
 
     IEnumerator RestartGame()
     {
+        
         GameOverScreen = false;
 
         if (gameOverUI != null)
@@ -55,6 +65,10 @@ public class GameController : MonoBehaviour
             {
                 Destroy(m_DestroyObjects.GetChild(i).gameObject);
             }
+        }
+        foreach(IRestartGameElement l_RestartGameElement in m_RestartGameElements)
+        {
+            l_RestartGameElement.RestartGame();
         }
 
         if (m_Player != null)
