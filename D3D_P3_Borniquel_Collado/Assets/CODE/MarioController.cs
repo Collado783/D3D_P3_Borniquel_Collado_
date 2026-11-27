@@ -13,7 +13,8 @@ public class MarioController : MonoBehaviour, IRestartGameElement
     CharacterController m_CharacterController;
     Animator m_Animator;
     public Collider m_GroundCheckerCollider;
-    
+
+    public float m_PlatformMaxAngle = 30f;
 
     public float m_VerticalSpeed = 0f;
     public float m_JumpSpeed = 7f;
@@ -37,6 +38,8 @@ public class MarioController : MonoBehaviour, IRestartGameElement
     public Key m_RunKeyControl = Key.LeftShift;
     public Key m_JumpKeyControl = Key.Space;
     public Key m_DebugKeyControl = Key.R;
+
+    Collider m_AttachedPlatform;
 
     public int m_PunchMouseButton = 0;
     public bool m_IsPunching=false;
@@ -179,6 +182,59 @@ public class MarioController : MonoBehaviour, IRestartGameElement
 
     public void RestartGame()
     {
+        m_CharacterController.enabled = false;
+        transform.position = m_StartPosition;
+        transform.rotation = m_StartRotation;
+        m_CharacterController.enabled = true;
         throw new System.NotImplementedException();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Elevator") && other==m_AttachedPlatform)
+        {
+            DetachPlatform();
+        }
+    }
+
+    bool CanAttachToPlatform(Collider _Collider)
+    {
+        float l_DotAngle = Vector3.Dot(_Collider.transform.up, Vector3.up);
+        return (l_DotAngle > Mathf.Cos(m_PlatformMaxAngle * Mathf.Deg2Rad));
+
+    }
+    void AttachPlatform(Collider _Collider)
+    {
+        m_AttachedPlatform =_Collider;
+        transform.SetParent(m_AttachedPlatform.transform);
+    }
+
+    void UpdateAttachedPlatform()
+    {
+        if (m_AttachedPlatform != null)
+        {
+            Vector3 l_Euler = transform.rotation.eulerAngles;
+            l_Euler.x = 0;
+            l_Euler.z = 0;
+            transform.rotation = Quaternion.Euler(l_Euler);
+            transform.SetParent(null);
+        }
+
+    }
+
+    void DetachPlatform()
+    {
+        m_AttachedPlatform=null;
+        Vector3 l_Euler=transform.rotation.eulerAngles;
+        l_Euler.x = 0;
+        l_Euler.z = 0;
+        transform.rotation = Quaternion.Euler(l_Euler);
+        transform.SetParent(null);
+    }
+
+    void LateUpdate()
+    {
+        UpdateAttachedPlatform();
+    }
+
 }
