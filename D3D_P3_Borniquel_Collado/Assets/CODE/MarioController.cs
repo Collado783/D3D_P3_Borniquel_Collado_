@@ -21,6 +21,9 @@ public class MarioController : MonoBehaviour, IRestartGameElement
 
     bool m_OnGround = false;
 
+    Checkpoint m_Checkpoint;
+    Checkpoint m_CurrentCheckpoint;
+
     public float m_WalkSpeed = 4.0f;
     public float m_RunSpeed = 8f;
     public float m_RotationLerpPct = 10f;
@@ -183,8 +186,17 @@ public class MarioController : MonoBehaviour, IRestartGameElement
     public void RestartGame()
     {
         m_CharacterController.enabled = false;
-        transform.position = m_StartPosition;
-        transform.rotation = m_StartRotation;
+        if (m_CurrentCheckpoint!=null)
+        {
+            transform.position = m_CurrentCheckpoint.m_StartPosition.position;
+            transform.rotation = m_CurrentCheckpoint.m_StartPosition.rotation;
+        }
+        else
+        {
+            transform.position = m_StartPosition;
+            transform.rotation = m_StartRotation;
+        }
+            
         m_CharacterController.enabled = true;
         throw new System.NotImplementedException();
     }
@@ -194,6 +206,10 @@ public class MarioController : MonoBehaviour, IRestartGameElement
         if (other.CompareTag("Elevator") && other==m_AttachedPlatform)
         {
             DetachPlatform();
+        }
+        else if (other.CompareTag("Checkpoint"))
+        {
+            m_CurrentCheckpoint=other.GetComponent<Checkpoint>();
         }
     }
 
@@ -237,4 +253,8 @@ public class MarioController : MonoBehaviour, IRestartGameElement
         UpdateAttachedPlatform();
     }
 
+    void Step()
+    {
+        
+    }
 }
